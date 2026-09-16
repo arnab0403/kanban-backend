@@ -8,11 +8,12 @@ export interface Task {
   assignee: string;
   status: string;
   position: number;
+  version: number;
   updatedAt: string;
 }
 
-export type CreateTaskInput = Omit<Task, "id" | "updatedAt" | "position"> & {
+export type CreateTaskInput = Omit<Task, "id" | "updatedAt" | "position" | "version"> & {
   position?: number;
 };
 
-export type UpdateTaskInput = Partial<Omit<Task, "id">>;
+export type UpdateTaskInput = Partial<Omit<Task, "id" | "version">>;
