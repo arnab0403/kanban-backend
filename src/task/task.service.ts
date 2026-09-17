@@ -9,6 +9,15 @@ function getBoard(): Task[] {
     .sort((a, b) => new Date(a.updatedAt).getTime() - new Date(b.updatedAt).getTime());
 }
 
+function getUsers(): string[] {
+  return [...new Set(
+    taskRepository
+      .findAll()
+      .map((task) => task.assignee.trim())
+      .filter(Boolean),
+  )];
+}
+
 function createTask(input: CreateTaskInput): Task {
   const payload = input as Partial<CreateTaskInput>;
   const title = typeof payload.title === "string" ? payload.title.trim() : "";
@@ -101,4 +110,4 @@ function deleteTask(id: string): boolean {
   return deleted;
 }
 
-export const taskService = { getBoard, createTask, updateTask, deleteTask };
+export const taskService = { getBoard, getUsers, createTask, updateTask, deleteTask };

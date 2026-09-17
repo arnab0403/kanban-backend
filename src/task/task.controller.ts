@@ -12,6 +12,16 @@ function getBoard(req: Request, res: Response): void {
   }
 }
 
+// GET /api/user - returns all unique, non-empty assignee names
+function getUsers(req: Request, res: Response): void {
+  try {
+    const users = taskService.getUsers();
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to load users" });
+  }
+}
+
 // POST /api/tasks - creates a new task
 function createTask(req: Request, res: Response): void {
   try {
@@ -85,6 +95,7 @@ function streamEvents(req: Request, res: Response): void {
 
 export const taskController = {
   getBoard,
+  getUsers,
   createTask,
   updateTask,
   deleteTask,
